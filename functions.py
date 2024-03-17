@@ -3,11 +3,13 @@ from nltk.tokenize import word_tokenize
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
+import re
 
 def preprocess(text):
-
+    pattern = r"[^\w\s]"
     text = [''.join([char if char.isalnum() else ' ' for char in word]) for word in text.split()]
     text = ' '.join(text)
+    text =  re.sub(pattern," ",text)
      # used word_tokenize function to tokenize the text, gives list
  
     tokenized_text = word_tokenize(text.lower())
