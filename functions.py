@@ -16,8 +16,8 @@ def preprocess(text):
     # removed stop words
     tokenized_text = [word for word in tokenized_text if word not in stop_words]
     # applying stemming 
-    stemmer = PorterStemmer()
-    tokenized_text = [stemmer.stem(word) for word in tokenized_text]
+    # stemmer = PorterStemmer()
+    # tokenized_text = [stemmer.stem(word) for word in tokenized_text]
     # applying lemmatization
     lemmatizer = WordNetLemmatizer()
     tokenized_text = [lemmatizer.lemmatize(word) for word in tokenized_text]
