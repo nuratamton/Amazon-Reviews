@@ -4,6 +4,8 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 import re
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 def preprocess(text):
     pattern = r"[^\w\s]"
@@ -27,3 +29,10 @@ def preprocess(text):
     preprocessed_text = ' '.join(tokenized_text)
     
     return preprocessed_text
+
+def preprocessSequential(text, tokenizer, max_length):
+    text_cleaned = re.sub(r'[^a-zA-Z\s]', '', text)
+    text_cleaned = text_cleaned.lower().strip()
+    sequences = tokenizer.texts_to_sequences([text_cleaned])
+    padded_seq = pad_sequences(sequences, maxlen=max_length, padding='post')
+    return padded_seq[0]  # Return the padded sequence
