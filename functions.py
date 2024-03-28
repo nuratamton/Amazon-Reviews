@@ -6,6 +6,7 @@ from nltk.stem import PorterStemmer, WordNetLemmatizer
 import re
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import numpy as np
 
 def preprocess(text):
     pattern = r"[^\w\s]"
@@ -34,5 +35,6 @@ def preprocessSequential(text, tokenizer, max_length):
     text_cleaned = re.sub(r'[^a-zA-Z\s]', '', text)
     text_cleaned = text_cleaned.lower().strip()
     sequences = tokenizer.texts_to_sequences([text_cleaned])
+    seq_lengths = np.array([len(s) for s in sequences])
     padded_seq = pad_sequences(sequences, maxlen=max_length, padding='post')
     return padded_seq[0]  # Return the padded sequence
